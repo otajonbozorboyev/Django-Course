@@ -1,0 +1,33 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>News Blog</title>
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@100&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <h1><a href="{% url 'home' %}">News Blog</a></h1>
+    </header>
+    {% if user.is_authenticated %}
+        <p>Xush kelibsiz, {{ user.username }}!</p>
+        <p><a href="{% url 'logout' %}">Chiqib ketish</a></p>
+    {% else %}
+        <p>
+            <a href="{% url 'login' %}">Saytga kirish</a> |
+            <a href="{% url 'signup' %}">Ro'yxatdan o'tish</a>
+        </p>
+    {% endif %}
+    <div>
+        {% block content %}
+        {% endblock content %}
+    </div>
+    <footer>
+        <h2><a href="{% url 'post_new' %}">Write new post</a></h2>
+    </footer>
+</body>
+</html>
