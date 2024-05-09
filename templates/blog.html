@@ -1,0 +1,116 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div id="colorlib-main">
+    <section class="ftco-section ftco-bread">
+        <div class="container">
+            <div class="row no-gutters slider-text justify-content-center align-items-center">
+                <div class="col-md-8 ftco-animate">
+                    <p class="breadcrumbs"><span class="mr-2"><a href="index-2.html">Home</a></span>
+                        <span>Blog</span></p>
+                    <h1 class="bread">Read Our Blog</h1>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section class="ftco-section">
+        <div class="container">
+            <div class="row d-flex">
+                <div class="col-lg-8">
+                    <div class="row">
+                        {% for i in blogs %}
+                        <div class="col-md-12">
+                            <div class="blog-entry ftco-animate d-md-flex">
+                                <a href="{% url 'detail' i.pk %}" class="img img-2"
+                                   style="background-image: url({{ i.image.url }});"></a>
+                                <div class="text text-2 p-4">
+                                    <h3 class="mb-2"><a href="{% url 'detail' i.pk %}">{{ i.title }}</a></h3>
+                                    <div class="meta-wrap">
+                                        <p class="meta">
+                                            <span>{{ i.create_date }}</span>
+                                            <span><a href="single.html">{{ i.category }}</a></span>
+                                            <span>{{ i.comment.count }} Comment</span>
+                                        </p>
+                                    </div>
+                                    <p class="mb-4">{{ i.body_two|truncatewords:30 }}</p>
+                                    <p><a href="#" class="btn-custom">Read More <span
+                                            class="ion-ios-arrow-forward"></span></a></p>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="row">
+                        <div class="col">
+                            <div class="block-27">
+                                <ul>
+                                    <li><a href="#">&lt;</a></li>
+                                    <li class="active"><span>1</span></li>
+                                    <li><a href="#">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li><a href="#">4</a></li>
+                                    <li><a href="#">5</a></li>
+                                    <li><a href="#">&gt;</a></li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 sidebar ftco-animate bg-light">
+                    <div class="sidebar-box">
+                        <form action="#" class="search-form">
+                            <div class="form-group">
+                                <span class="icon icon-search"></span>
+                                <input type="text" class="form-control" placeholder="Type a keyword and hit enter">
+                            </div>
+                        </form>
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3 class="sidebar-heading">Categories</h3>
+                        <ul class="categories">
+                            {% for i in categories %}
+                            <li><a href="#">{{ i.title }} <span>({{ i.category.count }})</span></a></li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3 class="sidebar-heading">Popular Articles</h3>
+                        {% for i in blogs %}
+                        <div class="block-21 mb-4 d-flex">
+                            <a class="blog-img mr-4" style="background-image: url({{ i.image.url }});"></a>
+                            <div class="text">
+                                <h3 class="heading"><a href="#">{{ i.title }}</a>
+                                </h3>
+                                <div class="meta">
+                                    <div><a href="#"><span class="icon-calendar"></span>{{ i.create_date }}</a></div>
+                                    <div><a href="#"><span class="icon-chat"></span>{{ i.comment.count }} Comments</a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                    <div class="sidebar-box ftco-animate">
+                        <h3 class="sidebar-heading">Tag Cloud</h3>
+                        <ul class="tagcloud">
+                            {% for i in tags %}
+                            <a href="#" class="tag-cloud-link">{{ i.title }}</a>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="sidebar-box subs-wrap img" style="background-image: url(images/bg_1.jpg);">
+                        <div class="overlay"></div>
+                        <h3 class="mb-4 sidebar-heading">Newsletter</h3>
+                        <p class="mb-4">Far far away, behind the word mountains, far from the countries Vokalia</p>
+                        <form action="#" class="subscribe-form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" placeholder="Email Address">
+                                <input type="submit" value="Subscribe" class="mt-2 btn btn-white submit">
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    {% endblock %}
