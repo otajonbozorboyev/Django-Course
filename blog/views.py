@@ -4,7 +4,7 @@ from about.models import About
 from collection.models import Collection
 from contact.models import ContactMe
 from .models import Blog, Category, Tag
-from .forms import CommentForm
+from .forms import CommentForm, SubscribeForm
 
 def indexView(request):
     about = About.objects.all()
@@ -35,6 +35,10 @@ def blogView(request):
     page = request.GET.get('page')
     blog = p.get_page(page)
     cat = request.GET.get('cat')
+    form = SubscribeForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('.')
     if cat:
         blog = blog.filter(category__title__iexact=cat)
     context = {
@@ -42,7 +46,8 @@ def blogView(request):
         'categories': category,
         'me': contactme,
         'tags': tag,
-        'blogs': blog
+        'blogs': blog,
+        'form': form
     }
     return render(request, 'blog.html', context)
 
